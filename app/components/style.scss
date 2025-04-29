@@ -1,0 +1,51 @@
+.w2s-table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+
+  tr:first-child {
+    border-top: var(--p-border-width-025) solid var(--p-color-border);
+  }
+
+  tr {
+    background-color: var(--p-color-bg-surface);
+    border-top: var(--p-border-width-025) solid var(--p-color-border-secondary);
+  }
+
+  th {
+    --pc-index-table-heading-padding-x: var(--p-space-150);
+    --pc-index-table-heading-padding-y: var(--p-space-200);
+    background: var(--p-color-bg-surface-secondary);
+    padding: var(--pc-index-table-heading-padding-y) var(--pc-index-table-heading-padding-x);
+    text-align: left;
+    font-weight: var(--p-font-weight-medium);
+    color: var(--p-color-text-secondary);
+    font-size: var(--p-font-size-300);
+    white-space: nowrap;
+    border: 0;
+    width: 50%;
+  }
+
+  th:first-child, td:first-child {
+    padding-left: var(--p-space-300);
+  }
+
+  th:last-child, td:last-child {
+    padding-right: var(--p-space-300);
+  }
+
+  td {
+    left: var(--pc-checkbox-offset);
+    padding: var(--p-space-150);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .w2s-meta-mapping-from-woo-column {
+    width: 25%;
+  }
+
+  .w2s-meta-mapping-to-shopify-column {
+    width: 100%;
+  }
+}
