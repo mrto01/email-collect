@@ -9,3 +9,4 @@ export {default as PressedButton} from "./PressedButton";
 export {default as TextAreaField} from "./TextAreaField";
 export {default as DatePickerField} from "./DatePickerField";
 export {default as MultipleSelectField} from "./MultipleSelectField";
+export {default as PopupTemplateField} from "./PopupTemplateField.jsx";

@@ -3,7 +3,7 @@
 client_id = "718c795b9107710ef703e60ccc624fd0"
 name = "vinext-email-collect"
 handle = "vinext-email-collect"
-application_url = "https://timely-olympics-cruise-receives.trycloudflare.com"
+application_url = "https://bears-so-unlimited-sports.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://timely-olympics-cruise-receives.trycloudflare.com/auth/callback",
-  "https://timely-olympics-cruise-receives.trycloudflare.com/auth/shopify/callback",
-  "https://timely-olympics-cruise-receives.trycloudflare.com/api/auth/callback"
+  "https://bears-so-unlimited-sports.trycloudflare.com/auth/callback",
+  "https://bears-so-unlimited-sports.trycloudflare.com/auth/shopify/callback",
+  "https://bears-so-unlimited-sports.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

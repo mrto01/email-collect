@@ -1,16 +1,12 @@
 import { create } from "zustand";
 import { produce } from "immer";
-import {createContext, useContext} from "react";
-import {v7 as uuidv7} from "uuid";
 
 export const useStore = create((set, get) => ({
-  storeSettings:  {},
-}));
+  storeSettings:  {
+    enable_popup_template: false,
 
-export const useSettings = create( (set, get) => ({
-  tabs: {}
+  },
 }));
-
 
 export const useStoreSettings = () => useStore( state => state.storeSettings);
 
@@ -22,3 +18,30 @@ export const setStoreSetting = ( key, value) => {
     state.storeSettings[key] = value;
   }));
 };
+
+
+const modalEditingStore = create((set, get) => ({
+  open: false,
+  src: null,
+  title: '',
+}));
+
+export const setEditModalOpen = (value) => {
+  modalEditingStore.setState(produce((state) => {
+    state.open = value;
+  }))
+}
+
+export const setEditModalSrc = (value) => {
+  modalEditingStore.setState(produce((state) => {
+    state.src = value;
+  }))
+}
+
+export const setEditModalTitle = (value) => {
+  modalEditingStore.setState(produce((state) => {
+    state.title = value;
+  }))
+}
+
+export const useEditEmailModal = () => modalEditingStore(s => s)

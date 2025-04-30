@@ -1,7 +1,8 @@
 import {BlockStack, Box, Card, InlineStack, Page, Tabs, Text} from "@shopify/polaris";
 import {useState} from "react";
 import SettingField from "../SettingField.jsx";
-import {setStoreSetting, useStoreSettings} from "../store.js";
+import {setEditModalOpen, setStoreSetting, useEditEmailModal, useStoreSettings} from "../store.js";
+import {Modal, TitleBar} from "@shopify/app-bridge-react";
 
 const TabWrapper = ({selected, children}) => {
   return <div style={{display: selected ? "block" : "none"}}>
@@ -33,9 +34,13 @@ const ControlSections = () => {
       panelID: "popup",
       options: [
         {
-          type: "popup_template",
-          title: "Popup Settings",
-          content: "",
+          type: 'popup_template',
+          label: 'Popup',
+          name: 'enable_popup_template',
+          helpText: 'Enable or disable popup to show customer in frontend.',
+          activatorText: 'Edit template',
+          modalSrc: '/popup-editor/customer_state_update_email',
+          modalTitle: 'Popup template',
         },
       ],
     }
@@ -43,48 +48,50 @@ const ControlSections = () => {
   const [selected, setSelected] = useState(0);
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
   const settings = useStoreSettings();
-  let id = 0;
   const settingChange = (name, value) => {
-    setStoreSetting(id, name, value);
+    setStoreSetting(name, value);
   };
   return (
-    <Card>
-      <BlockStack>
-        <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}/>
-        <BlockStack>
-          {
-            tabs.map( ( tab, i) => (
-              <TabWrapper key={i} selected={selected === i}>
-                {
-                  !!tab?.options && tab.options.map( (el, elIndex ) => {
-                    const {label} = el;
-                    let newProps = {...el, label: ""};
-                    let settingField = <SettingField key={elIndex} settings={settings} settingChange={settingChange} {...newProps} />;
-                    return (
-                      <InlineStack gap={"300"} wrap={false} key={elIndex}>
-                        <Box width={"250px"}>
-                          {label && <Text as="p">{label}</Text>}
-                        </Box>
-                        <Box width={"100%"}>
-                          {settingField}
-                        </Box>
-                      </InlineStack>
-                    );
-                  })
-                }
-              </TabWrapper>
-            ))
-          }
-        </BlockStack>
+      <BlockStack gap="300">
+        <Card padding="0">
+          <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}/>
+        </Card>
+        <Card padding={"500"}>
+          <BlockStack gap="400">
+            {
+              tabs.map( ( tab, i) => (
+                <TabWrapper key={i} selected={selected === i}>
+                  {
+                    !!tab?.options && tab.options.map( (el, elIndex ) => {
+                      return (
+                        <SettingField key={elIndex} settings={settings} settingChange={settingChange} {...el} />
+                      );
+                    })
+                  }
+                </TabWrapper>
+              ))
+            }
+          </BlockStack>
+        </Card>
       </BlockStack>
-    </Card>
   )
 }
+
+const EditingModal = () => {
+  let {open, src, title} = useEditEmailModal();
+  return (
+    <Modal onHide={() => setEditModalOpen(false)} open={open} src={src} variant={'max'}>
+      <TitleBar title={title}/>
+    </Modal>
+  );
+};
+
 
 const SettingPage = () => {
   return (
     <Page title={"Settings"}>
       <ControlSections/>
+      <EditingModal/>
     </Page>
   );
 }

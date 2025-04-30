@@ -2,8 +2,9 @@ import {Button, Checkbox, Divider, Select, Text} from "@shopify/polaris";
 import {useEffect} from "react";
 import {
   TextField, ColorField, PressedButton, NumberField, TextAreaField, InsertBlockField, InfoField,
-  DatePickerField, MultipleSelectField
+  DatePickerField, MultipleSelectField, PopupTemplateField
 } from "../components/index.jsx";
+import RadioField from "../components/RadioField.jsx";
 
 const componentMap = {
   text: TextField,
@@ -18,6 +19,8 @@ const componentMap = {
   info_block: InfoField,
   divider: Divider,
   multi_select: MultipleSelectField,
+  popup_template: PopupTemplateField,
+  radio: RadioField
 };
 
 const SettingField = ({type = "", errors = {}, settings = {}, settingChange, ...props}) => {
